@@ -379,13 +379,13 @@ public String testRequestMapping(){
 
 @RequestMapping注解的params属性是一个字符串类型的数组，可以通过四种表达式设置请求参数和请求映射的匹配关系
 
-"param"：要求请求映射所匹配的请求必须携带param请求参数
+* "param"：要求请求映射所匹配的请求必须携带param请求参数
 
-"!param"：要求请求映射所匹配的请求必须不能携带param请求参数
+* "!param"：要求请求映射所匹配的请求必须不能携带param请求参数
 
-"param=value"：要求请求映射所匹配的请求必须携带param请求参数且param=value
+* "param=value"：要求请求映射所匹配的请求必须携带param请求参数且param=value
 
-"param!=value"：要求请求映射所匹配的请求必须携带param请求参数但是param!=value
+* "param!=value"：要求请求映射所匹配的请求必须携带param请求参数但是param!=value
 
 ```html
 <a th:href="@{/test(username='admin',password=123456)">测试@RequestMapping的params属性-->/test</a><br>
@@ -413,13 +413,24 @@ public String testRequestMapping(){
 
 @RequestMapping注解的headers属性是一个字符串类型的数组，可以通过四种表达式设置请求头信息和请求映射的匹配关系
 
-"header"：要求请求映射所匹配的请求必须携带header请求头信息
+* "header"：要求请求映射所匹配的请求必须携带header请求头信息
 
-"!header"：要求请求映射所匹配的请求必须不能携带header请求头信息
+* "!header"：要求请求映射所匹配的请求必须不能携带header请求头信息
 
-"header=value"：要求请求映射所匹配的请求必须携带header请求头信息且header=value
+* "header=value"：要求请求映射所匹配的请求必须携带header请求头信息且header=value
 
-"header!=value"：要求请求映射所匹配的请求必须携带header请求头信息且header!=value
+* "header!=value"：要求请求映射所匹配的请求必须携带header请求头信息且header!=value
+
+```java
+@RequestMapping(
+            value = "/testParamsAndHeaders",
+            params = {"username","password!=123456"},
+            headers = {"Host=localhost:8080"}
+    )
+    public String testParamsAndHeaders(){
+        return "success";
+    }
+```
 
 若当前请求满足@RequestMapping注解的value和method属性，但是不满足headers属性，此时页面显示404错误，即资源未找到
 
@@ -430,6 +441,15 @@ public String testRequestMapping(){
 * *：表示任意的0个或多个字符
 
 * \**：表示任意的一层或多层目录
+
+```java
+    //@RequestMapping("/a?a/testAnt")
+    //@RequestMapping("/a*a/testAnt")
+    @RequestMapping("/**/testAnt")
+    public String testAnt(){
+        return "success";
+    }
+```
 
 注意：在使用\**时，只能使用/**/xxx的方式
 
