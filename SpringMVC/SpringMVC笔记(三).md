@@ -34,6 +34,12 @@ public ResponseEntity<byte[]> testResponseEntity(HttpSession session) throws IOE
 ## 2、文件上传
 
 文件上传要求form表单的请求方式必须为post，并且添加属性enctype="multipart/form-data"
+```html
+<form th:action="@{/testUp}" method="post" enctype="multipart/form-data">
+    头像：<input type="file" name="photo"><br>
+    <input type="submit" value="上传">
+</form>
+```
 
 SpringMVC中将上传的文件封装到MultipartFile对象中，通过此对象可以获取文件相关信息
 
